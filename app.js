@@ -13,4 +13,4 @@ for (i = $('.result').length - 1; i >= 0; i--) {
 
 // Make changes to DOM and add interactive features
 $('.CustomWidget > h2')[0].innerHTML += " Quiz";
-$('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = "<img src='" + employees[Math.floor(Math.random() * employees.length)].img + "'>";
+$('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = "<img src='" + employees[Math.floor(Math.random() * employees.length)].img + "' style='border-radius: 9px; width: 150px'>";

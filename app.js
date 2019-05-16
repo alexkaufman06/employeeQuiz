@@ -1,5 +1,5 @@
 /**
- * This file uses ES6 Template Literals which aren't compatible with IE11 or less. Need to convert to normal strings for IE11.
+ * This file uses ES6 Template Literals which aren't compatible with IE11 or less. You'll need to convert to normal strings for IE11.
  * Visit this URL and run the code in the console: http://intranet.dat.com/meet-our-employees
  * */
 
@@ -7,14 +7,23 @@
 
 var currentEmployeeImg = '';
 var currentEmployeeName = '';
-
-// Store employees in array
 var employees = [];
+var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px}</style>';
+
+/** *********************** SETUP TASKS ****************************** **/
+
+// Scrape employees and store them in array
 for (i=0; i < $('.result').length; i++) {
   employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
 }
 
-/** ******************** HELPER FUNCTIONS ***************************** **/
+// Add inline CSS to page
+$('#ctl00_divCenter')[0].innerHTML += styles;
+
+// Change title
+$('.CustomWidget > h2')[0].innerHTML += " Quiz";
+
+/** ********************** HELPER FUNCTIONS *************************** **/
 
 // Remove employees from DOM
 function removeEmployees() {
@@ -28,13 +37,11 @@ function randomEmployeeImg() {
 }
 
 function renderImg(imgSrc) {
-  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<img src="${imgSrc}" style="border-radius: 9px; width: 150px">`;
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<img src="${imgSrc}">`;
 }
 
 /** ************************ RUN QUIZ ********************************* **/
 
-// Make changes to DOM and add interactive features
-$('.CustomWidget > h2')[0].innerHTML += " Quiz";
 removeEmployees();
 currentEmployeeImg = randomEmployeeImg();
 renderImg(currentEmployeeImg);

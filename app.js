@@ -6,8 +6,9 @@
 /** ********************* GLOBAL VARIABLES **************************** **/
 
 var employees = [];
-var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
-var buttons = '<div class="button-holder"><button></button><button></button><button></button><button></button></div>'
+var correctAnswers = 0;
+var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
+var buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>'
 
 /** *********************** SETUP TASKS ****************************** **/
 
@@ -74,10 +75,10 @@ function renderButtons() {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML += buttons;
   wrongAnswers[3] = correctAnswer;
   shuffle(wrongAnswers);
-  $('.button-holder > button')[0].innerHTML = wrongAnswers[0].name
-  $('.button-holder > button')[1].innerHTML = wrongAnswers[1].name
-  $('.button-holder > button')[2].innerHTML = wrongAnswers[2].name
-  $('.button-holder > button')[3].innerHTML = wrongAnswers[3].name
+  for (i=0; i<=3; i++) {
+    $('.button-holder > button')[i].innerHTML = wrongAnswers[i].name
+    $('.button-holder > button')[i].setAttribute("onclick","answersGenerator();");
+  }
 }
 
 /** ************************ RUN QUIZ ********************************* **/
@@ -90,4 +91,4 @@ renderButtons();
 // Next Steps:
 // Add 1 / NumOfEmployees in UI
 // Percent and ration correct in UI
-// Add onclick events for buttons
+// Create guess function to be used for buttons onclick attribute

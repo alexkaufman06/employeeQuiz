@@ -8,7 +8,8 @@
 var currentEmployeeImg = '';
 var currentEmployeeName = '';
 var employees = [];
-var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px}</style>';
+var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
+var buttons = '<div class="button-holder"><button></button><button></button><button></button><button></button></div>'
 
 /** *********************** SETUP TASKS ****************************** **/
 
@@ -32,6 +33,15 @@ function removeEmployees() {
   }
 }
 
+function answerChoicesGenerator() {
+  chosenNumber = Math.floor(Math.random() * employees.length);
+  chosenEmployee = employees[chosenNumber];
+  correctName = chosenEmployee.name;
+  correctImg = chosenEmployee.img;
+  // remove chosen employee and add other employees without removing them from original employees array
+  // chosing other employees will require removing 'other chosen' from duplicated array
+}
+
 function randomEmployeeImg() {
   return employees[Math.floor(Math.random() * employees.length)].img;
 }
@@ -40,11 +50,22 @@ function renderImg(imgSrc) {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<img src="${imgSrc}">`;
 }
 
+function renderButtons() {
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML += buttons;
+  $('.button-holder > button')[0].innerHTML = 'text'
+  $('.button-holder > button')[1].innerHTML = 'text'
+  $('.button-holder > button')[2].innerHTML = 'text'
+  $('.button-holder > button')[3].innerHTML = 'text'
+}
+
 /** ************************ RUN QUIZ ********************************* **/
 
 removeEmployees();
 currentEmployeeImg = randomEmployeeImg();
 renderImg(currentEmployeeImg);
+renderButtons();
 
 // Next Steps:
-// Center Image and add buttons for choosing names
+// Select a winner and 3 other names to fill the buttons
+// Add 1 / NumOfEmployees in UI
+// Percent and ration correct in UI

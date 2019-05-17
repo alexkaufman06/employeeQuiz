@@ -33,11 +33,23 @@ function removeEmployees() {
   }
 }
 
-function answerChoicesGenerator() {
+function answersGenerator() {
+  // Choose an employee, get their data, and remove them from the employees array
   chosenNumber = Math.floor(Math.random() * employees.length);
   chosenEmployee = employees[chosenNumber];
   correctName = chosenEmployee.name;
   correctImg = chosenEmployee.img;
+  employees.splice(chosenNumber, 1);
+  // Copy employees array and generate wrong answers
+  employeesCopy = [...employees];
+  wrongAnswers = [];
+  for (i=0; i<=2; i++) {
+    wrongAnswerEmployeeId = Math.floor(Math.random() * employeesCopy.length);
+    wrongAnswers[i] = employeesCopy[wrongAnswerEmployeeId];
+    wrongAnswerName1 = wrongAnswers[i].name;
+    wrongAnswerImg1 = wrongAnswers[i].img;
+    employeesCopy.splice(wrongAnswerEmployeeId, 1);
+  }
   // remove chosen employee and add other employees without removing them from original employees array
   // chosing other employees will require removing 'other chosen' from duplicated array
 }

@@ -5,8 +5,6 @@
 
 /** ********************* GLOBAL VARIABLES **************************** **/
 
-var currentEmployeeImg = '';
-var currentEmployeeName = '';
 var employees = [];
 var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
 var buttons = '<div class="button-holder"><button></button><button></button><button></button><button></button></div>'
@@ -33,25 +31,27 @@ function removeEmployees() {
   }
 }
 
-function answersGenerator() {
-  // Choose an employee, get their data, and remove them from the employees array
+// Choose an employee, get their data, and remove them from the employees array
+function correctAnswerGenerator() {
   chosenNumber = Math.floor(Math.random() * employees.length);
-  chosenEmployee = employees[chosenNumber];
-  correctName = chosenEmployee.name;
-  correctImg = chosenEmployee.img;
+  correctAnswer = employees[chosenNumber];
   employees.splice(chosenNumber, 1);
-  // Copy employees array and generate wrong answers
+}
+
+// Copy employees array and generate wrong answers
+function falseAnswersGenerator() {
   employeesCopy = [...employees];
   wrongAnswers = [];
   for (i=0; i<=2; i++) {
     wrongAnswerEmployeeId = Math.floor(Math.random() * employeesCopy.length);
     wrongAnswers[i] = employeesCopy[wrongAnswerEmployeeId];
-    wrongAnswerName1 = wrongAnswers[i].name;
-    wrongAnswerImg1 = wrongAnswers[i].img;
     employeesCopy.splice(wrongAnswerEmployeeId, 1);
   }
-  // remove chosen employee and add other employees without removing them from original employees array
-  // chosing other employees will require removing 'other chosen' from duplicated array
+}
+
+function answersGenerator() {
+  correctAnswerGenerator();
+  falseAnswersGenerator();
 }
 
 function randomEmployeeImg() {
@@ -62,22 +62,32 @@ function renderImg(imgSrc) {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<img src="${imgSrc}">`;
 }
 
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function renderButtons() {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML += buttons;
-  $('.button-holder > button')[0].innerHTML = 'text'
-  $('.button-holder > button')[1].innerHTML = 'text'
-  $('.button-holder > button')[2].innerHTML = 'text'
-  $('.button-holder > button')[3].innerHTML = 'text'
+  wrongAnswers[3] = correctAnswer;
+  shuffle(wrongAnswers);
+  $('.button-holder > button')[0].innerHTML = wrongAnswers[0].name
+  $('.button-holder > button')[1].innerHTML = wrongAnswers[1].name
+  $('.button-holder > button')[2].innerHTML = wrongAnswers[2].name
+  $('.button-holder > button')[3].innerHTML = wrongAnswers[3].name
 }
 
 /** ************************ RUN QUIZ ********************************* **/
 
 removeEmployees();
-currentEmployeeImg = randomEmployeeImg();
-renderImg(currentEmployeeImg);
+answersGenerator();
+renderImg(correctAnswer.img);
 renderButtons();
 
 // Next Steps:
-// Select a winner and 3 other names to fill the buttons
 // Add 1 / NumOfEmployees in UI
 // Percent and ration correct in UI
+// Add onclick events for buttons

@@ -57,7 +57,7 @@ function answersGenerator() {
 }
 
 function renderScoreAndImg(imgSrc) {
-  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
 }
 
 // Shuffle answer choices so they appear in random order

@@ -7,6 +7,7 @@
 
 var employees = [];
 var correctAnswers = 0;
+var totalGuesses = 0;
 var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
 var buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>'
 
@@ -55,14 +56,11 @@ function answersGenerator() {
   falseAnswersGenerator();
 }
 
-function randomEmployeeImg() {
-  return employees[Math.floor(Math.random() * employees.length)].img;
+function renderScoreAndImg(imgSrc) {
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
 }
 
-function renderImg(imgSrc) {
-  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<img src="${imgSrc}">`;
-}
-
+// Shuffle answer choices so they appear in random order
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -77,18 +75,28 @@ function renderButtons() {
   shuffle(wrongAnswers);
   for (i=0; i<=3; i++) {
     $('.button-holder > button')[i].innerHTML = wrongAnswers[i].name
-    $('.button-holder > button')[i].setAttribute("onclick","answersGenerator();");
+    $('.button-holder > button')[i].setAttribute("onclick",`guess("${wrongAnswers[i].name}");`);
   }
+}
+
+function guess(name) {
+  if (name == correctAnswer.name) {
+    alert("Correct!");
+    correctAnswers += 1;
+    totalGuesses += 1;
+  } else {
+    alert("False");
+    totalGuesses += 1;
+  }
+  removeEmployees();
+  answersGenerator();
+  renderScoreAndImg(correctAnswer.img);
+  renderButtons();
 }
 
 /** ************************ RUN QUIZ ********************************* **/
 
 removeEmployees();
 answersGenerator();
-renderImg(correctAnswer.img);
+renderScoreAndImg(correctAnswer.img);
 renderButtons();
-
-// Next Steps:
-// Add 1 / NumOfEmployees in UI
-// Percent and ration correct in UI
-// Create guess function to be used for buttons onclick attribute

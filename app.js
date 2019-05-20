@@ -9,11 +9,11 @@ var employees = [];
 var correctAnswers = 0;
 var totalGuesses = 0;
 var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
-var buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>'
+var buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>';
 
 /** *********************** SETUP TASKS ****************************** **/
 
-// Scrape employees and store them in array
+// Scrape employees and store them in employees array
 for (i=0; i < $('.result').length; i++) {
   employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
 }
@@ -88,6 +88,10 @@ function guess(name) {
     alert("False");
     totalGuesses += 1;
   }
+  runQuiz();
+}
+
+function runQuiz() {
   removeEmployees();
   answersGenerator();
   renderScoreAndImg(correctAnswer.img);
@@ -96,7 +100,4 @@ function guess(name) {
 
 /** ************************ RUN QUIZ ********************************* **/
 
-removeEmployees();
-answersGenerator();
-renderScoreAndImg(correctAnswer.img);
-renderButtons();
+runQuiz();

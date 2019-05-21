@@ -26,8 +26,8 @@ $('.CustomWidget > h2')[0].innerHTML += " Quiz";
 
 /** ********************** HELPER FUNCTIONS *************************** **/
 
-// Remove employees from DOM
-function removeEmployees() {
+// Remove employees from DOM (Converted to ES6 syntax)
+var removeEmployees = () => {
   for (i = $('.result').length - 1; i >= 0; i--) {
     $('.result')[i].remove();
   }
@@ -101,3 +101,7 @@ function runQuiz() {
 /** ************************ RUN QUIZ ********************************* **/
 
 runQuiz();
+
+// NEXT STEPS:
+// Convert to ES6 Syntax - as needed
+// Fix error when guesses reach end of employees array

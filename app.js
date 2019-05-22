@@ -27,21 +27,21 @@ $('.CustomWidget > h2')[0].innerHTML += " Quiz";
 /** ********************** HELPER FUNCTIONS *************************** **/
 
 // Remove employees from DOM (Converted to ES6 syntax)
-var removeEmployees = () => {
+var removeEmployees = _ => {
   for (i = $('.result').length - 1; i >= 0; i--) {
     $('.result')[i].remove();
   }
 }
 
 // Choose an employee, get their data, and remove them from the employees array
-function correctAnswerGenerator() {
+var correctAnswerGenerator = _ => {
   chosenNumber = Math.floor(Math.random() * employees.length);
   correctAnswer = employees[chosenNumber];
   employees.splice(chosenNumber, 1);
 }
 
 // Copy employees array and generate wrong answers
-function falseAnswersGenerator() {
+var falseAnswersGenerator = _ => {
   employeesCopy = [...employees];
   wrongAnswers = [];
   for (i=0; i<=2; i++) {
@@ -51,17 +51,12 @@ function falseAnswersGenerator() {
   }
 }
 
-function answersGenerator() {
-  correctAnswerGenerator();
-  falseAnswersGenerator();
-}
+var answersGenerator = _ => correctAnswerGenerator(); falseAnswersGenerator();
 
-function renderScoreAndImg(imgSrc) {
-  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
-}
+var renderScoreAndImg = imgSrc => $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
 
 // Shuffle answer choices so they appear in random order
-function shuffle(a) {
+var shuffle = a => {
   for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
@@ -69,7 +64,7 @@ function shuffle(a) {
   return a;
 }
 
-function renderButtons() {
+var renderButtons = _ => {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML += buttons;
   wrongAnswers[3] = correctAnswer;
   shuffle(wrongAnswers);
@@ -79,7 +74,7 @@ function renderButtons() {
   }
 }
 
-function guess(name) {
+var guess = name => {
   if (name == correctAnswer.name) {
     alert("Correct!");
     correctAnswers += 1;
@@ -91,7 +86,7 @@ function guess(name) {
   runQuiz();
 }
 
-function runQuiz() {
+var runQuiz = _ => {
   removeEmployees();
   answersGenerator();
   renderScoreAndImg(correctAnswer.img);
@@ -103,5 +98,4 @@ function runQuiz() {
 runQuiz();
 
 // NEXT STEPS:
-// Convert to ES6 Syntax - as needed
 // Fix error when guesses reach end of employees array

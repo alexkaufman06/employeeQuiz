@@ -6,6 +6,8 @@
 /** ********************* GLOBAL VARIABLES **************************** **/
 
 var employees = [];
+var employeesCopy;
+var correctAnswer;
 var correctAnswers = 0;
 var totalGuesses = 0;
 var styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
@@ -13,10 +15,11 @@ var buttons = '<div class="button-holder"><button type="button"></button><button
 
 /** *********************** SETUP TASKS ****************************** **/
 
-// Scrape employees and store them in employees array
+// Scrape employees, store them in employees array, and copy that array
 for (i=0; i < $('.result').length; i++) {
   employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
 }
+var employeesCopy = [...employees];
 
 // Add inline CSS to page
 $('#ctl00_divCenter')[0].innerHTML += styles;
@@ -33,25 +36,24 @@ var removeEmployees = _ => {
   }
 }
 
-// Choose an employee, get their data, and remove them from the employees array
-var correctAnswerGenerator = _ => {
+var answersGenerator = _ => {
+  // Choose an employee, get their data, and remove them from the employees array
   chosenNumber = Math.floor(Math.random() * employees.length);
   correctAnswer = employees[chosenNumber];
   employees.splice(chosenNumber, 1);
-}
-
-// Copy employees array and generate wrong answers
-var falseAnswersGenerator = _ => {
-  employeesCopy = [...employees];
+  // Copy employees array and generate wrong answers
+  employeesTempCopy = [...employeesCopy];
   wrongAnswers = [];
   for (i=0; i<=2; i++) {
-    wrongAnswerEmployeeId = Math.floor(Math.random() * employeesCopy.length);
-    wrongAnswers[i] = employeesCopy[wrongAnswerEmployeeId];
-    employeesCopy.splice(wrongAnswerEmployeeId, 1);
+    wrongAnswerEmployeeId = Math.floor(Math.random() * employeesTempCopy.length);
+    // Stop correct answer from showing up as a wrong answer
+    while (correctAnswer.name == employeesTempCopy[wrongAnswerEmployeeId].name) {
+      wrongAnswerEmployeeId = Math.floor(Math.random() * employeesTempCopy.length);
+    }
+    wrongAnswers[i] = employeesTempCopy[wrongAnswerEmployeeId];
+    employeesTempCopy.splice(wrongAnswerEmployeeId, 1);
   }
 }
-
-var answersGenerator = _ => correctAnswerGenerator(); falseAnswersGenerator();
 
 var renderScoreAndImg = imgSrc => $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
 

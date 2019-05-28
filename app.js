@@ -82,17 +82,21 @@ var guess = name => {
     correctAnswers += 1;
     totalGuesses += 1;
   } else {
-    alert("False");
+    alert(`False, it was: ${correctAnswer.name}`);
     totalGuesses += 1;
   }
   runQuiz();
 }
 
 var runQuiz = _ => {
-  removeEmployees();
-  answersGenerator();
-  renderScoreAndImg(correctAnswer.img);
-  renderButtons();
+  if (employees.length > 0) {
+    removeEmployees();
+    answersGenerator();
+    renderScoreAndImg(correctAnswer.img);
+    renderButtons();
+  } else {
+    $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br><p>Score: ${correctAnswers}/${totalGuesses}</p>`;
+  }
 }
 
 /** ************************ RUN QUIZ ********************************* **/
@@ -100,4 +104,4 @@ var runQuiz = _ => {
 runQuiz();
 
 // NEXT STEPS:
-// Fix error when guesses reach end of employees array
+// Allow user to set number of questions and restart 

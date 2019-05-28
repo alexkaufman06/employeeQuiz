@@ -88,16 +88,18 @@ var guess = name => {
   runQuiz();
 }
 
-var runQuiz = _ => {
-  if (employees.length > 0) {
-    removeEmployees();
-    answersGenerator();
-    renderScoreAndImg(correctAnswer.img);
-    renderButtons();
-  } else {
-    $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br><p>Score: ${correctAnswers}/${totalGuesses}</p>`;
-  }
+var nextQuestion = _ => {
+  removeEmployees();
+  answersGenerator();
+  renderScoreAndImg(correctAnswer.img);
+  renderButtons();
 }
+
+var endQuiz = _ => {
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br><p>Score: ${correctAnswers}/${totalGuesses}</p>`;
+}
+
+var runQuiz = _ => (employees.length > 0) ? nextQuestion() : endQuiz();
 
 /** ************************ RUN QUIZ ********************************* **/
 
@@ -105,3 +107,4 @@ runQuiz();
 
 // NEXT STEPS:
 // Allow user to set number of questions and restart 
+// Look for opportunites to remove duplication (like the meet our employees html)

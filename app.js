@@ -6,6 +6,7 @@
 /** ********************* GLOBAL VARIABLES **************************** **/
 
 let employees = [];
+let qaEmployees = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey'];
 let employeesCopy;
 let correctAnswer;
 let correctAnswers = 0;
@@ -17,7 +18,10 @@ let buttons = '<div class="button-holder"><button type="button"></button><button
 
 // Scrape employees, store them in employees array, and copy that array
 for (i=0; i < $('.result').length; i++) {
-  employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
+  // QA Employee only logic commented out for now
+  // if (qaEmployees.indexOf($('.result > span')[i].innerHTML) != -1) {
+    employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src}); 
+  // }
 }
 employeesCopy = [...employees];
 
@@ -112,4 +116,4 @@ runQuiz();
 // NEXT STEPS:
 // Allow user to set number of questions and restart 
 // Look for opportunites to remove duplication (like the meet our employees html)
-// start filtering QA and engineering departments
+// show percentage correct

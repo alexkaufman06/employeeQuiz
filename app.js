@@ -120,3 +120,4 @@ runQuiz();
 // Allow user to set number of questions and restart 
 // Look for opportunites to remove duplication (like the meet our employees html)
 // show percentage correct
+// look into scraping employee data

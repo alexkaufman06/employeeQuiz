@@ -11,6 +11,7 @@ let devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan
 let engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 let engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 let departmentForQuiz = '';
+let quizLength = 0;
 let employeesCopy;
 let correctAnswer;
 let correctAnswers = 0;
@@ -20,12 +21,17 @@ let buttons = '<div class="button-holder"><button type="button"></button><button
 
 /** *********************** SETUP TASKS ****************************** **/
 
-// Promt user for department to be quized on
+// Prompt user for department to be quized on
 while (departmentForQuiz.toLowerCase() != 'all' && departmentForQuiz.toLowerCase() != 'engineering') {
   departmentForQuiz = prompt('Which department would you like to be quized on? (All or Engineering?)');
 }
 
-// Scrape employees, store them in employees array, and copy that array
+// Prompt user on length of quiz
+while (quizLength <= 0) {
+  quizLength = prompt('How many questions would you like in your quiz?');
+}
+
+// Scrape employees, store them in employees array
 for (i=0; i < $('.result').length; i++) {
   // Logic to scrape based on department
   if (departmentForQuiz == 'engineering' && engineering.indexOf($('.result > span')[i].innerHTML) != -1) {
@@ -34,13 +40,15 @@ for (i=0; i < $('.result').length; i++) {
     employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
   }
 }
-employeesCopy = [...employees];
 
-// Add inline CSS to page
-$('#ctl00_divCenter')[0].innerHTML += styles;
+// Limit length of quiz to personalized amount specified above
+while (employees.length > quizLength) {
+  employees.pop(); // should update this to remove random employee
+}
 
-// Change title
-$('.CustomWidget > h2')[0].innerHTML += " Quiz";
+employeesCopy = [...employees]; // Copy employees array
+$('#ctl00_divCenter')[0].innerHTML += styles; // Add inline CSS to page
+$('.CustomWidget > h2')[0].innerHTML += " Quiz"; // Change title
 
 /** ********************** HELPER FUNCTIONS *************************** **/
 
@@ -125,7 +133,8 @@ let runQuiz = _ => (employees.length > 0) ? nextQuestion() : endQuiz();
 runQuiz();
 
 // NEXT STEPS:
-// Allow user to set number of questions and restart 
 // Look for opportunites to remove duplication (like the meet our employees html)
 // show percentage correct
 // look into scraping employee data
+// Get rid of prompts and provide interface within HTML
+// Add logic to regect if quizLength is greater than length requested

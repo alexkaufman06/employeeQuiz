@@ -6,6 +6,7 @@
 /** ********************* GLOBAL VARIABLES **************************** **/
 
 let employees = [];
+let hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
 let qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
 let devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', ' Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
 let engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
@@ -22,8 +23,10 @@ let buttons = '<div class="button-holder"><button type="button"></button><button
 /** *********************** SETUP TASKS ****************************** **/
 
 // Prompt user for department to be quized on
-while (departmentForQuiz.toLowerCase() != 'all' && departmentForQuiz.toLowerCase() != 'engineering') {
-  departmentForQuiz = prompt('Which department would you like to be quized on? (All or Engineering?)');
+while (departmentForQuiz.toLowerCase() != 'all' && 
+       departmentForQuiz.toLowerCase() != 'eng' && 
+       departmentForQuiz.toLowerCase() != 'hr') {
+  departmentForQuiz = prompt('Which department would you like to be quized on? (All/Eng/HR)');
 }
 
 // Prompt user on length of quiz
@@ -34,8 +37,10 @@ while (quizLength <= 0) {
 // Scrape employees, store them in employees array
 for (i=0; i < $('.result').length; i++) {
   // Logic to scrape based on department
-  if (departmentForQuiz == 'engineering' && engineering.indexOf($('.result > span')[i].innerHTML) != -1) {
+  if (departmentForQuiz == 'eng' && engineering.indexOf($('.result > span')[i].innerHTML) != -1) {
     employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src}); 
+  } else if (departmentForQuiz == 'hr' && hrEmployees.indexOf($('.result > span')[i].innerHTML) != -1) {
+    employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
   } else if (departmentForQuiz == 'all') {
     employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
   }

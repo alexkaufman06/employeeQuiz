@@ -110,28 +110,28 @@ const correctGuess = _ => {
   totalGuesses += 1;
 }
 
-let falseGuess = _ => {
+const falseGuess = _ => {
   alert(`False, it was: ${correctAnswer.name}`);
   totalGuesses += 1;
 }
 
-let guess = name => {
+const guess = name => {
   (name == correctAnswer.name) ? correctGuess() : falseGuess();
   runQuiz();
 }
 
-let nextQuestion = _ => {
+const nextQuestion = _ => {
   removeEmployees();
   answersGenerator();
   renderScoreAndImg(correctAnswer.img);
   renderButtons();
 }
 
-let endQuiz = _ => {
+const endQuiz = _ => {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br><p>Score: ${correctAnswers}/${totalGuesses}</p>`;
 }
 
-let runQuiz = _ => (employees.length > 0) ? nextQuestion() : endQuiz();
+const runQuiz = _ => (employees.length > 0) ? nextQuestion() : endQuiz();
 
 /** ************************ RUN QUIZ ********************************* **/
 
@@ -144,3 +144,5 @@ runQuiz();
 // Get rid of prompts and provide interface within HTML
 // Add logic to regect if quizLength is greater than length requested
 // Having low number of quiz questions is breaking the program (might set a minimum to 5 questions)
+// Need to update the way I scrape employees
+  // Should have them all stored in an array and shuffled. Then the pulling by department can initiate.

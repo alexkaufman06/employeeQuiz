@@ -1,11 +1,8 @@
 /**
- * This file uses ES6 Template Literals which aren't compatible with IE11 or less. You'll need to convert to normal strings for IE11.
  * Visit this URL and run the code in the console: http://intranet.dat.com/meet-our-employees
  * */
 
 /** ********************* GLOBAL VARIABLES **************************** **/
-
-
 
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
 const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
@@ -13,7 +10,7 @@ const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erh
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
-let employees = [];
+let quizEmployees = [];
 let departmentForQuiz = '';
 let quizLength = 0;
 let employeesCopy;
@@ -52,7 +49,7 @@ const shuffleArray = a => {
 
 shuffleArray(allEmployees);
 
-const storeEmployeesForQuiz = index => employees.push({name: allEmployees[index].name, img: allEmployees[index].img});
+const storeEmployeesForQuiz = index => quizEmployees.push({name: allEmployees[index].name, img: allEmployees[index].img});
 
 // Scrape employees, store them in employees array
 for (let i=0; i < allEmployees.length; i++) {
@@ -67,17 +64,17 @@ for (let i=0; i < allEmployees.length; i++) {
 }
 
 // Limit length of quiz to personalized amount specified above
-while (employees.length > quizLength) {
-  employees.pop(); // should update this to remove random employee
+while (quizEmployees.length > quizLength) {
+  quizEmployees.pop();
 }
 
-employeesCopy = [...employees]; // Copy employees array
+employeesCopy = [...quizEmployees];
 $('#ctl00_divCenter')[0].innerHTML += styles; // Add inline CSS to page
-$('.CustomWidget > h2')[0].innerHTML += " Quiz"; // Change title
+$('.CustomWidget > h2')[0].innerHTML += " Quiz"; // Change title of HTML
 
 /** ********************** HELPER FUNCTIONS *************************** **/
 
-// Remove employees from DOM (Converted to ES6 syntax)
+// Remove employees from DOM
 const removeEmployees = _ => {
   for (i = $('.result').length - 1; i >= 0; i--) {
     $('.result')[i].remove();
@@ -86,9 +83,9 @@ const removeEmployees = _ => {
 
 const answersGenerator = _ => {
   // Choose an employee, get their data, and remove them from the employees array
-  chosenNumber = Math.floor(Math.random() * employees.length);
-  correctAnswer = employees[chosenNumber];
-  employees.splice(chosenNumber, 1);
+  chosenNumber = Math.floor(Math.random() * quizEmployees.length);
+  correctAnswer = quizEmployees[chosenNumber];
+  quizEmployees.splice(chosenNumber, 1);
   // Copy employees array and generate wrong answers
   employeesTempCopy = [...employeesCopy];
   wrongAnswers = [];
@@ -142,7 +139,7 @@ const endQuiz = _ => {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br><p>Score: ${correctAnswers}/${totalGuesses}</p>`;
 }
 
-const runQuiz = _ => (employees.length > 0) ? nextQuestion() : endQuiz();
+const runQuiz = _ => (quizEmployees.length > 0) ? nextQuestion() : endQuiz();
 
 /** ************************ RUN QUIZ ********************************* **/
 

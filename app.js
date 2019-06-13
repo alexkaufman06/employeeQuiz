@@ -5,12 +5,15 @@
 
 /** ********************* GLOBAL VARIABLES **************************** **/
 
-let employees = [];
+
+
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
 const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
 const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', ' Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
+const allEmployees = [];
+let employees = [];
 let departmentForQuiz = '';
 let quizLength = 0;
 let employeesCopy;
@@ -34,15 +37,32 @@ while (quizLength < 5) {
   quizLength = prompt('How many questions would you like in your quiz?');
 }
 
+// Scrape all employees and store them in an array
+for (let i=0; i < $('.result').length; i++) {
+  allEmployees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
+}
+
+const shuffleArray = a => {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+shuffleArray(allEmployees);
+
+const storeEmployeesForQuiz = index => employees.push({name: allEmployees[index].name, img: allEmployees[index].img});
+
 // Scrape employees, store them in employees array
-for (i=0; i < $('.result').length; i++) {
+for (let i=0; i < allEmployees.length; i++) {
   // Logic to scrape based on department
-  if (departmentForQuiz == 'eng' && engineering.indexOf($('.result > span')[i].innerHTML) != -1) {
-    employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src}); 
-  } else if (departmentForQuiz == 'hr' && hrEmployees.indexOf($('.result > span')[i].innerHTML) != -1) {
-    employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
+  if (departmentForQuiz == 'eng' && engineering.indexOf(allEmployees[i].name) != -1) {
+    storeEmployeesForQuiz(i); 
+  } else if (departmentForQuiz == 'hr' && hrEmployees.indexOf(allEmployees[i].name) != -1) {
+    storeEmployeesForQuiz(i);
   } else if (departmentForQuiz == 'all') {
-    employees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
+    storeEmployeesForQuiz(i);
   }
 }
 
@@ -85,19 +105,10 @@ const answersGenerator = _ => {
 
 const renderScoreAndImg = imgSrc => $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
 
-// Shuffle answer choices so they appear in random order
-const shuffle = a => {
-  for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 const renderButtons = _ => {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML += buttons;
   wrongAnswers[3] = correctAnswer;
-  shuffle(wrongAnswers);
+  shuffleArray(wrongAnswers);
   for (let i=0; i<=3; i++) {
     $('.button-holder > button')[i].innerHTML = wrongAnswers[i].name
     $('.button-holder > button')[i].setAttribute("onclick",`guess("${wrongAnswers[i].name}");`);
@@ -140,9 +151,9 @@ runQuiz();
 // NEXT STEPS:
 // Look for opportunites to remove duplication (like the meet our employees html)
 // show percentage correct
-// look into scraping employee data
+// look into scraping employee data via automation and store it to feed app
 // Get rid of prompts and provide interface within HTML
 // Add logic to regect if quizLength is greater than length requested
 // Having low number of quiz questions is breaking the program (might set a minimum to 5 questions)
-// Need to update the way I scrape employees
-  // Should have them all stored in an array and shuffled. Then the pulling by department can initiate.
+// Update the way choices are rendered?
+  // Wrong choices should come from all employees?

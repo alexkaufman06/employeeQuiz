@@ -4,21 +4,22 @@
 
 /** ********************* GLOBAL VARIABLES **************************** **/
 
+const styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
+const buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>';
+const quizOptions = '<div class="form-group"> <h4>Please select the department for your quiz:</h4><br> <p> <label><input type="radio" name="department" value="All" style=" ">&nbsp;&nbsp;All&nbsp;</label> <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label> <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label> </p><br> <label for="formControlRange">Select the length of your quiz:</label> <input type="range" class="form-control-range" id="formControlRange"> <br><br><p><input type="button" value="Start Quiz"></p> </div>';
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
 const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
 const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', ' Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
-let quizEmployees = [];
+const quizEmployees = [];
+let quizEmployeesCopy;
 let departmentForQuiz = '';
 let quizLength = 0;
-let employeesCopy;
 let correctAnswer;
 let correctAnswers = 0;
 let totalGuesses = 0;
-const styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
-const buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>';
 
 /** *********************** SETUP TASKS ****************************** **/
 
@@ -68,7 +69,7 @@ while (quizEmployees.length > quizLength) {
   quizEmployees.pop();
 }
 
-employeesCopy = [...quizEmployees];
+quizEmployeesCopy = [...quizEmployees];
 $('#ctl00_divCenter')[0].innerHTML += styles; // Add inline CSS to page
 $('.CustomWidget > h2')[0].innerHTML += " Quiz"; // Change title of HTML
 
@@ -87,7 +88,7 @@ const answersGenerator = _ => {
   correctAnswer = quizEmployees[chosenNumber];
   quizEmployees.splice(chosenNumber, 1);
   // Copy employees array and generate wrong answers
-  employeesTempCopy = [...employeesCopy];
+  employeesTempCopy = [...quizEmployeesCopy];
   wrongAnswers = [];
   for (i=0; i<=2; i++) {
     wrongAnswerEmployeeId = Math.floor(Math.random() * employeesTempCopy.length);
@@ -147,9 +148,11 @@ runQuiz();
 
 // NEXT STEPS:
 // Look for opportunites to remove duplication (like the meet our employees html)
-// show percentage correct
+// show percentage correct (custom messages depending on how well you scored)
 // look into scraping employee data via automation and store it to feed app
 // Get rid of prompts and provide interface within HTML
+  // https://www.tutorialrepublic.com/codelab.php?topic=faq&file=jquery-get-selected-radio-button-value
+  // https://jsfiddle.net/w8bw4dte/
 // Add logic to regect if quizLength is greater than length requested
 // Having low number of quiz questions is breaking the program (might set a minimum to 5 questions)
 // Update the way choices are rendered?

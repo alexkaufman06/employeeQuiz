@@ -4,18 +4,50 @@
 
 /** ********************* GLOBAL VARIABLES **************************** **/
 
-const styles = '<style>.MeetOurEmployees {text-align:center;} .MeetOurEmployees > img {border-radius: 9px; width: 150px} h2 {text-align:center !important;}.button-holder > button {display: inline-block;cursor: pointer;margin: 10px;font-weight: 400;color: #212529;border-color: #343a40 !important;text-align: center;vertical-align: middle;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-color: transparent;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;} button:hover {color: #fff !important;background-color: #343a40;border-color: #343a40;}</style>';
-const buttons = '<div class="button-holder"><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div>';
-const quizOptions = '<div class="form-group"> <h4>Please select the department for your quiz:</h4><br><form> <p> <label><input type="radio" name="department" value="All" required>&nbsp;&nbsp;All&nbsp;</label> <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label> <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label> </p><br> <label for="formControlRange">Select the length of your quiz:</label> <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value"> <output id="lengthOutput">5</output> <br><br><p><input type="submit" value="Start Quiz"></p></form> </div>';
+const styles = `<style>
+                  .MeetOurEmployees { text-align:center; } 
+                  .MeetOurEmployees > img { border-radius: 9px; width: 150px } 
+                  h2 { text-align:center !important; }
+                  .button-holder > button { display: inline-block; cursor: pointer; margin: 10px; font-weight: 400; color: #212529;
+                    border-color: #343a40 !important; text-align: center; vertical-align: middle; -webkit-user-select: none;
+                    -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent;
+                    border: 1px solid transparent; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; border-radius: .25rem;
+                    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                  } 
+                  button:hover { color: #fff !important; background-color: #343a40; border-color: #343a40; }
+                </style>`;
+const buttons = `<div class="button-holder">
+                   <button type="button"></button>
+                   <button type="button"></button>
+                   <button type="button"></button>
+                   <button type="button"></button>
+                 </div>`;
+const quizOptions = `<div class="form-group">
+                       <h4>Please select the department for your quiz:</h4><br>
+                       <form>
+                         <p>
+                           <label><input type="radio" name="department" value="All" required>&nbsp;&nbsp;All&nbsp;</label>
+                           <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label>
+                           <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label>
+                         </p><br>
+                         <label for="formControlRange">Select the length of your quiz:</label>
+                         <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value">
+                         <output id="lengthOutput">5</output><br><br>
+                         <p><input type="submit" value="Start Quiz"></p>
+                       </form>
+                     </div>`;
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
-const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
-const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', 'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
+const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 
+                     'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 
+                     'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
+const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', 
+                      'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
 const quizEmployees = [];
 let quizEmployeesCopy;
-let departmentForQuiz = '';
+let departmentForQuiz;
 let quizLength = 0;
 let correctAnswer;
 let correctAnswers = 0;
@@ -72,7 +104,6 @@ const setLengthOfQuiz = _ => {
     quizEmployees.pop();
   }
 }
-
 
 $('#ctl00_divCenter')[0].innerHTML += styles; // Add inline CSS to page
 $('.CustomWidget > h2')[0].innerHTML += " Quiz"; // Change title of HTML
@@ -161,3 +192,5 @@ initializeQuiz();
 // Update the way choices are rendered?
   // Wrong choices should come from all employees?
 // Add progress bar
+// Update quiz to not include the signed in user
+  // Also don't want signed in user to be an answer choice

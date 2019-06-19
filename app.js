@@ -9,7 +9,7 @@ const buttons = '<div class="button-holder"><button type="button"></button><butt
 const quizOptions = '<div class="form-group"> <h4>Please select the department for your quiz:</h4><br><form> <p> <label><input type="radio" name="department" value="All" required>&nbsp;&nbsp;All&nbsp;</label> <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label> <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label> </p><br> <label for="formControlRange">Select the length of your quiz:</label> <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value"> <output id="lengthOutput">5</output> <br><br><p><input type="submit" value="Start Quiz"></p></form> </div>';
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
 const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
-const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', ' Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
+const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', 'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
@@ -141,7 +141,9 @@ const nextQuestion = _ => {
 }
 
 const endQuiz = _ => {
-  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br><p>Score: ${correctAnswers}/${totalGuesses}</p>`;
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br>
+                                                             <p>Score: ${correctAnswers}/${totalGuesses}</p><br>                                                        
+                                                             <h3>${correctAnswers/totalGuesses * 100}% Correct</h3>`;
 }
 
 const runQuiz = _ => (quizEmployees.length > 0) ? nextQuestion() : endQuiz();
@@ -149,7 +151,6 @@ const runQuiz = _ => (quizEmployees.length > 0) ? nextQuestion() : endQuiz();
 /** ************************ RUN QUIZ ********************************* **/
 
 initializeQuiz();
-// runQuiz();
 
 // NEXT STEPS:
 // Look for opportunites to remove duplication (like the meet our employees html)
@@ -159,3 +160,4 @@ initializeQuiz();
 // Having low number of quiz questions is breaking the program (might set a minimum to 5 questions)
 // Update the way choices are rendered?
   // Wrong choices should come from all employees?
+// Add progress bar

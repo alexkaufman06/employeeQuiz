@@ -6,6 +6,7 @@
 
 const styles = `<style>
                   /****************** ANIMATIONS ******************/
+
                   @-webkit-keyframes fadeInUp {
                     0% {
                        opacity: 0;
@@ -42,14 +43,17 @@ const styles = `<style>
                   div.fadeInUp {
                     animation-delay: 0.7s;
                   }
+
                   /******************** STYLES ********************/
+
                   .MeetOurEmployees { text-align:center; } 
+                  .MeetOurEmployees > p,h2,h3,h4,label,button,input { text-align:center; font-family: "Luckiest Guy", cursive !important }                  
                   .MeetOurEmployees > img { border-radius: 9px; width: 150px } 
-                  h2 { text-align:center !important; }
+                  h2 { text-align: center !important; }
                   .button-holder > button { display: inline-block; cursor: pointer; margin: 10px; font-weight: 400; color: #212529;
                     border-color: #343a40 !important; text-align: center; vertical-align: middle; -webkit-user-select: none;
                     -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent;
-                    border: 1px solid transparent; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; border-radius: .25rem;
+                    border: 1px solid transparent; padding: 10px 10px 6px 10px; font-size: 1rem; line-height: 1.5; border-radius: .25rem;
                     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
                   } 
                   button:hover { color: #fff !important; background-color: #343a40; border-color: #343a40; }
@@ -71,7 +75,9 @@ const quizOptions = `<div class="form-group">
                          <label for="formControlRange">Select the length of your quiz:</label>
                          <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value">
                          <output id="lengthOutput">5</output><br><br>
-                         <p><input type="submit" value="Start Quiz"></p>
+                         <div class="button-holder">
+                           <button type="submit">Start Quiz</button>
+                         </div>
                        </form>
                      </div>`;
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
@@ -97,6 +103,9 @@ let totalGuesses = 0;
 for (let i=0; i < $('.result').length; i++) {
   allEmployees.push({name: $('.result > span')[i].innerHTML, img: $('.result > a> img')[i].src});
 }
+
+// Add Luckiest Guy font
+$('title')[0].outerHTML += '<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">';
 
 const shuffleArray = a => {
   for (let i = a.length - 1; i > 0; i--) {

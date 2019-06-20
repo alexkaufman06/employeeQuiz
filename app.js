@@ -5,6 +5,44 @@
 /** ********************* GLOBAL VARIABLES **************************** **/
 
 const styles = `<style>
+                  /****************** ANIMATIONS ******************/
+                  @-webkit-keyframes fadeInUp {
+                    0% {
+                       opacity: 0;
+                       -webkit-transform: translateY(20px);
+                    }
+                    100% {
+                       opacity: 1;
+                       -webkit-transform: translateY(0);
+                    }
+                  }
+                  
+                  @keyframes fadeInUp {
+                    0% {
+                       opacity: 0;
+                       transform: translateY(20px);
+                    }
+                    100% {
+                       opacity: 1;
+                       transform: translateY(0);
+                    }
+                  }
+                  
+                  .fadeInUp {
+                    -webkit-animation-name: fadeInUp;
+                    animation-name: fadeInUp;
+                    animation-duration: 1s;
+                    animation-fill-mode: both;
+                  }
+
+                  img.fadeInUp {
+                    animation-delay: 0.35s;
+                  }
+
+                  div.fadeInUp {
+                    animation-delay: 0.7s;
+                  }
+                  /******************** STYLES ********************/
                   .MeetOurEmployees { text-align:center; } 
                   .MeetOurEmployees > img { border-radius: 9px; width: 150px } 
                   h2 { text-align:center !important; }
@@ -16,7 +54,7 @@ const styles = `<style>
                   } 
                   button:hover { color: #fff !important; background-color: #343a40; border-color: #343a40; }
                 </style>`;
-const buttons = `<div class="button-holder">
+const buttons = `<div class="button-holder fadeInUp">
                    <button type="button"></button>
                    <button type="button"></button>
                    <button type="button"></button>
@@ -136,7 +174,11 @@ const answersGenerator = _ => {
   }
 }
 
-const renderScoreAndImg = imgSrc => $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses}</p><br><img src="${imgSrc}">`;
+const renderScoreAndImg = imgSrc => {
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p class='fadeInUp'>Score: ${correctAnswers}/${totalGuesses}</p>
+                                                             <br>
+                                                             <img class='fadeInUp' src="${imgSrc}">`;
+}
 
 const renderButtons = _ => {
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML += buttons;

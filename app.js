@@ -4,98 +4,110 @@
 
 /** ********************* GLOBAL VARIABLES **************************** **/
 
-const styles = `<style>
-                  /****************** ANIMATIONS ******************/
+const styles = `
+  <style>
+    /****************** ANIMATIONS ******************/
 
-                  @-webkit-keyframes fadeInUp {
-                    0% {
-                       opacity: 0;
-                       -webkit-transform: translateY(20px);
-                    }
-                    100% {
-                       opacity: 1;
-                       -webkit-transform: translateY(0);
-                    }
-                  }
-                  
-                  @keyframes fadeInUp {
-                    0% {
-                       opacity: 0;
-                       transform: translateY(20px);
-                    }
-                    100% {
-                       opacity: 1;
-                       transform: translateY(0);
-                    }
-                  }
-                  
-                  .fadeInUp {
-                    -webkit-animation-name: fadeInUp;
-                    animation-name: fadeInUp;
-                    animation-duration: 1s;
-                    animation-fill-mode: both;
-                  }
+    @-webkit-keyframes fadeInUp {
+      0% {
+          opacity: 0;
+          -webkit-transform: translateY(20px);
+      }
+      100% {
+          opacity: 1;
+          -webkit-transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      0% {
+          opacity: 0;
+          transform: translateY(20px);
+      }
+      100% {
+          opacity: 1;
+          transform: translateY(0);
+      }
+    }
+    
+    .fadeInUp {
+      -webkit-animation-name: fadeInUp;
+      animation-name: fadeInUp;
+      animation-duration: 1s;
+      animation-fill-mode: both;
+    }
+    .waitOne {
+      animation-delay: 0.35s;
+    }
 
-                  img.fadeInUp {
-                    animation-delay: 0.35s;
-                  }
+    .waitTwo {
+      animation-delay: 0.7s;
+    }
 
-                  div.fadeInUp {
-                    animation-delay: 0.7s;
-                  }
+    .waitThree {
+      animation-delay: 1.05s;
+    }
 
-                  /******************** STYLES ********************/
+    .waitFour {
+      animation-delay: 1.40s;
+    }
 
-                  .MeetOurEmployees { text-align:center; } 
-                  .MeetOurEmployees > p,h2,h3,h4,label,button,input { text-align:center; font-family: "Luckiest Guy", cursive !important }                  
-                  .MeetOurEmployees > img { border-radius: 9px; width: 150px } 
-                  h2 { text-align: center !important; }
-                  .button-holder > button { display: inline-block; cursor: pointer; margin: 10px; font-weight: 400; color: #212529;
-                    border-color: #343a40 !important; text-align: center; vertical-align: middle; -webkit-user-select: none;
-                    -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent;
-                    border: 1px solid transparent; padding: 10px 10px 6px 10px; font-size: 1rem; line-height: 1.5; border-radius: .25rem;
-                    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-                  } 
-                  button:hover { color: #fff !important; background-color: #343a40; border-color: #343a40; }
-                </style>`;
-const buttons = `<div class="button-holder fadeInUp">
-                   <button type="button"></button>
-                   <button type="button"></button>
-                   <button type="button"></button>
-                   <button type="button"></button>
-                 </div>`;
-const quizOptions = `<div class="form-group">
-                       <h4>Please select the department for your quiz:</h4><br>
-                       <form>
-                         <p>
-                           <label><input type="radio" name="department" value="All" required>&nbsp;&nbsp;All&nbsp;</label>
-                           <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label>
-                           <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label>
-                         </p><br>
-                         <label for="formControlRange">Select the length of your quiz:</label>
-                         <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value">
-                         <output id="lengthOutput">5</output><br><br>
-                         <div class="button-holder">
-                           <button type="submit">Start Quiz</button>
-                         </div>
-                       </form>
-                     </div>`;
+    /******************** STYLES ********************/
+
+    .noHover { pointer-events: none; }
+    .MeetOurEmployees { text-align:center; } 
+    .MeetOurEmployees > p,h2,h3,h4,label,button,input { text-align:center; font-family: "Luckiest Guy", cursive !important }                  
+    .MeetOurEmployees > img { border-radius: 9px; width: 150px } 
+    h2 { text-align: center !important; }
+    .button-holder > button { display: inline-block; cursor: pointer; margin: 10px; font-weight: 400; color: #212529; border-color: #343a40 !important; text-align: center; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 10px 10px 6px 10px; font-size: 1rem; line-height: 1.5; border-radius: .25rem; transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out; outline: none;} 
+    button:hover { color: #fff !important; background-color: #343a40; border-color: #343a40; }
+    .correct { background-color: green !important; color: white !important; }
+    .false { background-color: red !important; color: white !important; }
+  </style>`;
+const buttons = `
+  <div class="button-holder">
+    <button type="button"></button>
+    <button type="button"></button>
+    <button type="button"></button>
+    <button type="button"></button>
+  </div>`;
+const quizOptions = `
+  <div class="form-group">
+    <h4 class="fadeInUp waitOne">Please select the department for your quiz:</h4><br>
+    <form>
+      <p class="fadeInUp waitTwo">
+        <label><input type="radio" name="department" value="All" required>&nbsp;&nbsp;All&nbsp;</label>
+        <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label>
+        <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label>
+      </p>
+      <br>
+      <div class="fadeInUp waitThree">
+      <label for="formControlRange">Select the length of your quiz:</label>
+      <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value">
+      <output id="lengthOutput">5</output><br><br>
+      </div>
+      <div class="button-holder">
+        <button type="submit" class="fadeInUp waitFour">Start Quiz</button>
+      </div>
+    </form>
+  </div>`;
 const hrEmployees = ['Dwight Morrow', 'Sandy Campbell', 'Diane Hamman', 'Lisa Henshaw', 'John Gay'];
 const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel', 'Justin Clar', 'Jack Tillotson', 
                      'Josh Ludahl', 'Stephen McGuckin', 'Sam Rousculp', 'Kris Sandwick', 'Julie Green', 'Sara Holtz', 
                      'Lauren Posey', 'Scott Brose', 'Tri Pham', 'Darryl Bechtol'];
 const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', 
-                      'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce'];
+                      'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce',
+                      'Tim Dale', 'Leander Harding'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
-const quizEmployees = [];
-let quizEmployeesCopy;
-let departmentForQuiz;
-let quizLength = 0;
+const quizEmployees = []; // This var will likely need to be reset for restarting app
+let quizEmployeesCopy; //  Same
+let departmentForQuiz; 
+let quizLength;
 let correctAnswer;
-let correctAnswers = 0;
-let totalGuesses = 0;
+let correctAnswers = 0; // Same
+let totalGuesses = 0; // Same
 
 /** *********************** SETUP TASKS ****************************** **/
 
@@ -126,7 +138,9 @@ $("form").submit(function(e){
   quizLength = $("input[type='range']").val();
   storeEmployeesByDepartment();
   setLengthOfQuiz();
-  runQuiz();
+  answersGenerator();
+  renderScoreAndImg(correctAnswer.img);
+  renderButtons();
   e.preventDefault();
 });
 
@@ -154,6 +168,7 @@ const setLengthOfQuiz = _ => {
 
 $('#ctl00_divCenter')[0].innerHTML += styles; // Add inline CSS to page
 $('.CustomWidget > h2')[0].innerHTML += " Quiz"; // Change title of HTML
+$('.CustomWidget > h2')[0].className += "fadeInUp"; // Add animation
 
 /** ********************** HELPER FUNCTIONS *************************** **/
 
@@ -184,9 +199,9 @@ const answersGenerator = _ => {
 }
 
 const renderScoreAndImg = imgSrc => {
-  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p class='fadeInUp'>Score: ${correctAnswers}/${totalGuesses}</p>
+  $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<p>Score: ${correctAnswers}/${totalGuesses + 1}</p>
                                                              <br>
-                                                             <img class='fadeInUp' src="${imgSrc}">`;
+                                                             <img class='fadeInUp waitOne' src="${imgSrc}">`;
 }
 
 const renderButtons = _ => {
@@ -195,34 +210,60 @@ const renderButtons = _ => {
   shuffleArray(wrongAnswers);
   for (let i=0; i<=3; i++) {
     $('.button-holder > button')[i].innerHTML = wrongAnswers[i].name
-    $('.button-holder > button')[i].setAttribute("onclick",`guess("${wrongAnswers[i].name}");`);
+    $('.button-holder > button')[i].setAttribute("onclick",`guess("${wrongAnswers[i].name}"); `);
   }
+  $('.button-holder')[0].className += ' fadeInUp waitTwo';
 }
 
 const correctGuess = _ => {
-  alert("Correct!");
   correctAnswers += 1;
   totalGuesses += 1;
+  $('.MeetOurEmployees > p')[0].innerHTML = `Score: ${correctAnswers}/${totalGuesses}`;
+  for (let i=0; i<=3; i++) {
+    $('.button-holder > button')[i].setAttribute("onclick",``);
+    $('.button-holder > button')[i].className += ' noHover';
+    if ($('.button-holder > button')[i].innerHTML == correctAnswer.name) {
+      $('.button-holder > button')[i].className += ' correct';
+    }
+  }
 }
 
-const falseGuess = _ => {
-  alert(`False, it was: ${correctAnswer.name}`);
+const falseGuess = guess => {
   totalGuesses += 1;
+  $('.MeetOurEmployees > p')[0].innerHTML = `Score: ${correctAnswers}/${totalGuesses}`;
+  for (let i=0; i<=3; i++) {
+    $('.button-holder > button')[i].setAttribute("onclick",``);
+    $('.button-holder > button')[i].className += ' noHover';
+    if ($('.button-holder > button')[i].innerHTML == guess) {
+      $('.button-holder > button')[i].className += ' false';
+    }
+  }
 }
 
 const guess = name => {
-  (name == correctAnswer.name) ? correctGuess() : falseGuess();
-  runQuiz();
+  (name == correctAnswer.name) ? correctGuess() : falseGuess(name);
+  var nextButton = $('.MeetOurEmployees')[0];
+  nextButton.insertAdjacentHTML('beforeend', `
+    <div class="button-holder fadeInUp">
+      <button id="next" type="button" onclick="runQuiz();">Next</button>
+    </div>
+  `);
+}
+
+var removeNextButton = _ => {
+  var element = $('#next')[0];
+  element.parentNode.removeChild(element);
 }
 
 const nextQuestion = _ => {
-  removeEmployees();
+  removeNextButton();
   answersGenerator();
   renderScoreAndImg(correctAnswer.img);
   renderButtons();
 }
 
 const endQuiz = _ => {
+  removeNextButton();
   $('.MeetOurEmployees > .MeetOurEmployees')[0].innerHTML = `<h3>You finished the quiz!</h3><br>
                                                              <p>Score: ${correctAnswers}/${totalGuesses}</p><br>                                                        
                                                              <h3>${correctAnswers/totalGuesses * 100}% Correct</h3>`;
@@ -245,3 +286,5 @@ initializeQuiz();
 // Add progress bar
 // Update quiz to not include the signed in user
   // Also don't want signed in user to be an answer choice
+// Add restart button at end
+// Add correct/false animations

@@ -78,13 +78,14 @@ const quizOptions = `
       <p class="fadeInUp waitTwo">
         <label><input type="radio" name="department" value="All" required>&nbsp;&nbsp;All&nbsp;</label>
         <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label>
-        <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;Human Resources&nbsp;</label>
+        <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;HR&nbsp;</label>
+        <label><input type="radio" name="department" value="Marketing">&nbsp;&nbsp;Marketing&nbsp;</label>
       </p>
       <br>
       <div class="fadeInUp waitThree">
-      <label for="formControlRange">Select the length of your quiz:</label>
-      <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value">
-      <output id="lengthOutput">5</output><br><br>
+        <label for="formControlRange">Select the length of your quiz:</label>
+        <input type="range" class="form-control-range" id="lengthInput" value="5" min="5" max="20" oninput="lengthOutput.value = lengthInput.value">
+        <output id="lengthOutput">5</output><br><br>
       </div>
       <div class="button-holder">
         <button type="submit" class="fadeInUp waitFour">Start Quiz</button>
@@ -99,9 +100,12 @@ const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erh
                       'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce',
                       'Tim Dale', 'Leander Harding'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
+const marketing = ['Pat Pitz', 'Joel Weiler', 'Mark Montague', 'Liz Davalos', 'Matt Sullivan', 'Kim Lysne', 'Andrey Burkovskiy'];
+const marketingManagement = ['Karinne Cyphers', 'Sandy Cahill'];
+const allMarketing = marketingManagement.concat(marketing);
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
-const quizEmployees = []; // This var will likely need to be reset for restarting app
+const quizEmployees = []; // This var will likely need to be reset for restarting app => change to let and update in initialize quiz
 let quizEmployeesCopy; //  Same
 let departmentForQuiz; 
 let quizLength;
@@ -152,6 +156,8 @@ const storeEmployeesByDepartment = _ => {
     if (departmentForQuiz == 'Engineering' && engineering.indexOf(allEmployees[i].name) != -1) {
       storeEmployeesForQuiz(i); 
     } else if (departmentForQuiz == 'Human Resources' && hrEmployees.indexOf(allEmployees[i].name) != -1) {
+      storeEmployeesForQuiz(i);
+    } else if (departmentForQuiz == 'Marketing' && allMarketing.indexOf(allEmployees[i].name) != -1) {
       storeEmployeesForQuiz(i);
     } else if (departmentForQuiz == 'All') {
       storeEmployeesForQuiz(i);
@@ -242,8 +248,8 @@ const falseGuess = guess => {
 
 const guess = name => {
   (name == correctAnswer.name) ? correctGuess() : falseGuess(name);
-  var nextButton = $('.MeetOurEmployees')[0];
-  nextButton.insertAdjacentHTML('beforeend', `
+  var quizDiv = $('.MeetOurEmployees')[0];
+  quizDiv.insertAdjacentHTML('beforeend', `
     <div class="button-holder fadeInUp">
       <button id="next" type="button" onclick="runQuiz();">Next</button>
     </div>

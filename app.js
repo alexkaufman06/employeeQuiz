@@ -80,6 +80,8 @@ const quizOptions = `
         <label><input type="radio" name="department" value="Engineering">&nbsp;&nbsp;Engineering&nbsp;</label>
         <label><input type="radio" name="department" value="Human Resources">&nbsp;&nbsp;HR&nbsp;</label>
         <label><input type="radio" name="department" value="Marketing">&nbsp;&nbsp;Marketing&nbsp;</label>
+        <label><input type="radio" name="department" value="Sales">&nbsp;&nbsp;Sales&nbsp;</label>
+        <label><input type="radio" name="department" value="Customer Relations">&nbsp;&nbsp;Customer Relations&nbsp;</label>
       </p>
       <br>
       <div class="fadeInUp waitThree">
@@ -102,16 +104,18 @@ const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erh
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
 const marketing = ['Pat Pitz', 'Joel Weiler', 'Mark Montague', 'Liz Davalos', 'Matt Sullivan', 'Kim Lysne', 'Andrey Burkovskiy'];
 const marketingManagement = ['Karinne Cyphers', 'Sandy Cahill'];
+const sales = ['Sarah Allen', 'Carol VanDyke', 'Melissa Tooley', 'Bobbie Apilando', 'Scott Anderson', 'Kassondra Van Keuren'];
+const customerRelations = ['Charlie Fortson', 'Adriana Esquivel', 'Erick Iniguez', 'Hans Grauert', 'Fawn Baker'];
 const allMarketing = marketingManagement.concat(marketing);
 const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
 const allEmployees = [];
-const quizEmployees = []; // This var will likely need to be reset for restarting app => change to let and update in initialize quiz
-let quizEmployeesCopy; //  Same
+const quizEmployees = []; // This var will likely need to be reset for restarting app 
+let quizEmployeesCopy; //  This var will likely need to be reset for restarting app 
 let departmentForQuiz; 
 let quizLength;
 let correctAnswer;
-let correctAnswers = 0; // Same
-let totalGuesses = 0; // Same
+let correctAnswers = 0; // This var will likely need to be reset for restarting app 
+let totalGuesses = 0; // This var will likely need to be reset for restarting app 
 
 /** *********************** SETUP TASKS ****************************** **/
 
@@ -158,6 +162,10 @@ const storeEmployeesByDepartment = _ => {
     } else if (departmentForQuiz == 'Human Resources' && hrEmployees.indexOf(allEmployees[i].name) != -1) {
       storeEmployeesForQuiz(i);
     } else if (departmentForQuiz == 'Marketing' && allMarketing.indexOf(allEmployees[i].name) != -1) {
+      storeEmployeesForQuiz(i);
+    } else if (departmentForQuiz == 'Sales' && sales.indexOf(allEmployees[i].name) != -1) {
+      storeEmployeesForQuiz(i);
+    } else if (departmentForQuiz == 'Customer Relations' && customerRelations.indexOf(allEmployees[i].name) != -1) {
       storeEmployeesForQuiz(i);
     } else if (departmentForQuiz == 'All') {
       storeEmployeesForQuiz(i);
@@ -283,7 +291,7 @@ initializeQuiz();
 
 // NEXT STEPS:
 // Look for opportunites to remove duplication (like the meet our employees html)
-// show percentage correct (custom messages depending on how well you scored)
+// custom messages depending on how well you scored
 // look into scraping employee data via automation and store it to feed app
 // Add logic to regect if quizLength is greater than length requested
 // Having low number of quiz questions is breaking the program (might set a minimum to 5 questions)

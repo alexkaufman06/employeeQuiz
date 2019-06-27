@@ -101,7 +101,7 @@ const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel
 const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', 
                       'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce',
                       'Tim Dale', 'Leander Harding'];
-const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki'];
+const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki', 'Greg Larson'];
 const marketing = ['Pat Pitz', 'Joel Weiler', 'Mark Montague', 'Liz Davalos', 'Matt Sullivan', 'Kim Lysne', 'Andrey Burkovskiy'];
 const marketingManagement = ['Karinne Cyphers', 'Sandy Cahill'];
 const sales = ['Sarah Allen', 'Carol VanDyke', 'Melissa Tooley', 'Bobbie Apilando', 'Scott Anderson', 'Kassondra Van Keuren'];

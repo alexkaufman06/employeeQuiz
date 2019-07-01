@@ -101,13 +101,14 @@ const qaEngineers = ['Keith Hamilton', 'Jeff Weber', 'Jake Sarate', 'Jodi Bethel
 const devEngineers = ['Denver Bohling', 'Steve Bloedel', 'Vincent Petrone', 'Erhan Ergenekan', 'Tommy Koster', 
                       'Caleb Chenoweth', 'David Sheckler', 'Iryna Grom', 'Tyler Vaslev', 'Michael Morris-Pearce',
                       'Tim Dale', 'Leander Harding'];
+const devOpsEngineers = ['Jenna Esquivel', 'Matthew Ceroni'];
 const engineeringManagement = ['Jack Beck', 'Mark Bryant', 'Keith Hamilton', 'Schon Brenner', 'Jeremy Sanecki', 'Greg Larson'];
 const marketing = ['Pat Pitz', 'Joel Weiler', 'Mark Montague', 'Liz Davalos', 'Matt Sullivan', 'Kim Lysne', 'Andrey Burkovskiy'];
 const marketingManagement = ['Karinne Cyphers', 'Sandy Cahill'];
 const sales = ['Sarah Allen', 'Carol VanDyke', 'Melissa Tooley', 'Bobbie Apilando', 'Scott Anderson', 'Kassondra Van Keuren'];
 const customerRelations = ['Charlie Fortson', 'Adriana Esquivel', 'Erick Iniguez', 'Hans Grauert', 'Fawn Baker'];
 const allMarketing = marketingManagement.concat(marketing);
-const engineering = engineeringManagement.concat(devEngineers, qaEngineers);
+const engineering = engineeringManagement.concat(devEngineers, qaEngineers, devOpsEngineers);
 const allEmployees = [];
 const quizEmployees = []; // This var will likely need to be reset for restarting app 
 let quizEmployeesCopy; //  This var will likely need to be reset for restarting app 

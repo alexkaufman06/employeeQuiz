@@ -1,0 +1,22 @@
+{
+  "name": "employeequiz",
+  "version": "1.0.0",
+  "description": "Employee quiz for learning the names of your cohorts",
+  "main": "app.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexkaufman06/employeeQuiz.git"
+  },
+  "author": "Alex Kaufman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexkaufman06/employeeQuiz/issues"
+  },
+  "homepage": "https://github.com/alexkaufman06/employeeQuiz#readme",
+  "dependencies": {
+    "jasmine": "^3.4.0"
+  }
+}
